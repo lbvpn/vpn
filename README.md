@@ -14,6 +14,17 @@
 
 **:globe_with_meridians: [永久官网（需翻墙访问）](https://www.lbvpn.cc)** 
 - - - -
+#### 社交平台账号
+
+**<img src="./image/telegram.png" height=19> [Telegram官方群](https://t.me/lbvpn01)**
+
+**<img src="./image/x.png" height=19> [X 官方账号](https://twitter.com/lbvpn_)**
+
+**<img src="./image/facebook.png" height=19> [Facebook 官方账号](https://www.facebook.com/profile.php?id=61558562240396)**
+
+**<img src="./image/ins.png" height=19> [Instagram 官方账号](https://instagram.com/lbvpn_)**
+
+- - - -
 #### 联系方式（请在浏览器中打开）
 
 **:e-mail: [官网邮箱（自动回复最新官网）](mailto:kf@lbvpn.cc)**
