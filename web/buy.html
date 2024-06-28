@@ -69,6 +69,7 @@
 </div>
 
 <script src="js/utils.js" charSet="utf-8"></script>
+<script src="js/qrcode.min.js" charSet="utf-8"></script>
 <script>
   layui.use(['form', 'table', 'miniPage'], function () {
     var $ = layui.jquery,
@@ -170,11 +171,7 @@
         layer.msg("请选择支付方式",{time:1000});
         return false;
       }
-
-      if(money<30000 && (payment == "UNIONPAY" || payment == "UNION")){
-        layer.msg("此支付仅支持300元以上的套餐",);
-        return false;
-      }
+      let isScan = $('.layuimini-main-buy .payment ul').find('li.selected').attr("isScan");
 
       let now = parseInt(new Date().getTime()/1000);
       let ts = layui.data('postage').buy_ts;
@@ -212,7 +209,17 @@
           }else {
             let payUrl = json.data.pay_url;
 
-            if(isSafari > -1){
+            if (isScan=='true'){
+              layer.open({
+                type: 1,
+                title: '扫码',
+                area: '300px',
+                content: `<div><div style="text-align: center;color: red;margin-top: 15px;">请截图保存,并使用对应app扫码</div><div id="qrcode" style="width: 256px;height: 256px;margin:15px auto"></div></div>`,
+                success: function(layero, index){
+                  new QRCode(document.getElementById("qrcode"), payUrl);
+                }
+              });
+            } else if(isSafari > -1){
               setTimeout(function() {  //这里使用setTimeout非常重要，没有将无法实现
                 //原因是window.open会中断正在执行的进程，这样能保证其它代码执行完成再执行这个。
                 winOpen.location = payUrl; //改变页面的location
@@ -318,7 +325,7 @@
         }
 
         if (!isReset){
-          resetPayment(paymentInfo.list);
+          resetPayment(paymentInfo.new_list);
         }
       };
     }
@@ -336,7 +343,7 @@
           json.data.cache_ts = timestamp;
           layui.sessionData('payment',{key:"info",value: json.data});
           if (isReset){
-            resetPayment(json.data.list);
+            resetPayment(json.data.new_list);
           }
         } else if(json.code == 4003){
           layer.msg(json.msg, {
@@ -416,23 +423,7 @@
           selected = "selected";
           iconImage = "images/icon-select.png";
         }
-        if (item.indexOf("ALIPAY")>-1){
-          html += `<li id="${item}" class="${selected}"><img src="images/icon_pay_alipay.png"/><span>支付宝</span><div><img src="${iconImage}"></div></li><div class="line"></div>`;
-        }else if(item.indexOf("WX")>-1){
-          html += `<li id="${item}" class="${selected}"><img src="images/icon_pay_weixin.png"/><span>微信</span><div><img src="${iconImage}"></div></li><div class="line"></div>`;
-        }else if(item.indexOf("ALISCAN")>-1){
-          html += `<li id="${item}" class="${selected}"><img src="images/icon_pay_alipay.png"/><span>支付宝扫码</span><div><img src="${iconImage}"></div></li><div class="line"></div>`;
-        }else if(item.indexOf("QQ")>-1){
-          html += `<li id="${item}" class="${selected}"><img src="images/icon_pay_qq.png"/><span>QQ钱包</span><div><img src="${iconImage}"></div></li><div class="line"></div>`;
-        }else if(item == "UNIONPAY"){
-          html += `<li id="${item}" class="${selected}"><img src="images/icon_pay_yl.png"/><span>银联</span><div><img src="${iconImage}"></div></li><div class="line"></div>`;
-        }else if(item == "UNION"){
-          html += `<li id="${item}" class="${selected}"><img src="images/icon_pay_union.png"/><span>云闪付</span><div><img src="images/icon-no-select.png"></div></li><div class="line"></div>`;
-        }else if(item == "COINPAY"){
-          html += `<li id="${item}" class="${selected}"><img src="images/icon_pay_usdt_trc20.png"/><span>USDT(TRC20)支付</span><div><img src="images/icon-no-select.png"></div></li><div class="line"></div>`;
-        }else if(item == "COINPAY_USDT.BEP20"){
-          html += `<li id="${item}" class="${selected}"><img src="images/icon_pay_usdt_bsc.png"/><span>USDT(BEP20)支付</span><div><img src="images/icon-no-select.png"></div></li><div class="line"></div>`;
-        }
+        html += `<li id="${item.payment}" isScan="${item.is_scan}" class="${selected}"><img src="${item.icon}"/><span>${item.name}</span><div><img src="${iconImage}"></div></li><div class="line"></div>`;
       });
 
       $(".layuimini-main-buy .payment ul").html(html);
