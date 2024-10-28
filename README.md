@@ -29,4 +29,4 @@
 
 **:e-mail: [官网邮箱（自动回复最新官网）](mailto:kf@lbvpn.cc)**
 
-**:e-mail: [合作邮箱（商务合作请联系）](mailto:liebaohz@gmail.com)**
+**:e-mail: [合作邮箱（商务合作请联系）](mailto:hezuo@lbvpn.cc)**
