@@ -39,7 +39,7 @@
     <div class="index-header" style="background-color: #393D41;">
         <div class="layui-header header">
             <div class="logo" style="float: left;height: 50px;line-height: 50px;margin: 0 0 0 19px;font-size: 15px;font-weight: bold;color: white;">
-<!--                <img src="./images/logo.png"/>-->
+                <!--                <img src="./images/logo.png"/>-->
                 <span>猎豹</span>
             </div>
 
@@ -81,7 +81,7 @@
                 <i></i>
                 <span class="broadcast">信息公告<span id="broadcast-id" style="margin-left: 3px;"></span></span>
                 <i></i>
-                <span class="help-question">使用指南</span>
+                <span class="tohelp">下载指南</span>
             </div>
 
             <div></div>
@@ -116,21 +116,41 @@
             </div>
         </div>
     </div>
+    <div class="warning-show">
+        <div class="warning-container">
+            <div>
+                <button class="close"><img src="images/close.png"/></button>
+                <div class="title">重要通知</div>
+                <div class="desc">
+                    <span style="color: orangered">Outline已在中国区下架</span><br/>已下载用户目前不影响使用，但需在2025年1月1日前迁移至猎豹IOS客户端，过期不再维护！<br/>
+                    现在下载猎豹IOS客户端您可以：<br/>
+                    1.赠送15天VIP时长（在IOS客户端登录即到账）；<br/>
+                    2.享受海量高速专线，线路更稳定，更快速；<br/>
+                    3.享受24/7的客服服务和技术支持，全方位保障您的使用体验；<br/>
+                </div>
+                <button class="toHelp" style="width: 295px;height: 40px; background-color: #2468F2;color: white;border-radius: 2px;">查看下载教程</button>
+            </div>
+        </div>
+    </div>
 </div>
 <script src="lib/layui-v2.6.7/layui.js" charset="utf-8"></script>
 <script src="js/lay-config.js" charset="utf-8"></script>
 <script src="js/utils.js" charset="utf-8"></script>
 <script src="js/md5.min.js" charset="utf-8"></script>
 <script src="js/help.js" charset="utf-8"></script>
-<script src="js/common.js" charset="utf-8"></script>
 <script src="js/refresh.js" charset="utf-8"></script>
 <script src="js/mescroll.min.js" type="text/javascript" charset="utf-8"></script>
+<script>
+    // We pre-filled your app ID in the widget URL: 'https://widget.intercom.io/widget/kbx8admj'
+    (function(){var w=window;var ic=w.Intercom;if(typeof ic==="function"){ic('reattach_activator');ic('update',w.intercomSettings);}else{var d=document;var i=function(){i.c(arguments);};i.q=[];i.c=function(args){i.q.push(args);};w.Intercom=i;var l=function(){var s=d.createElement('script');s.type='text/javascript';s.async=true;s.src='https://widget.intercom.io/widget/kbx8admj';var x=d.getElementsByTagName('script')[0];x.parentNode.insertBefore(s,x);};if(document.readyState==='complete'){l();}else if(w.attachEvent){w.attachEvent('onload',l);}else{w.addEventListener('load',l,false);}}})();
+</script>
 <script>
     layui.use(['jquery', 'layer','miniAdmin','miniPage'], function () {
         var $ = layui.jquery,
             layer = layui.layer,
             miniAdmin = layui.miniAdmin,
             miniPage = layui.miniPage;
+
 
         var index = 0;
         var options = {
@@ -159,11 +179,22 @@
 
         miniAdmin.render(options);
 
-        
-        var help = layui.data('help').info;
-        if(help == undefined || help != 1){
-            startHelp();
+        var warning = layui.data('warning').info;
+        if(warning == undefined || warning != 1){
+            $(".warning-show").show();
+            // layui.data('warning',{key:"info",value: 1});
         }
+
+        let uid = 0;
+        if(layui.sessionData('user').userInfo!=undefined && layui.sessionData('user').userInfo.uid != undefined){
+            uid = layui.sessionData('user').userInfo.uid;
+        }
+
+        window.intercomSettings = {
+            api_base: "https://api-iam.intercom.io",
+            app_id: "kbx8admj",
+            user_id: 'web-lb-'+uid,
+        };
 
         $('.login-out').on("click", function () {
             layui.data("token",null);
@@ -189,6 +220,10 @@
             let now = parseInt(new Date().getTime()/1000);
             miniPage.hashChange("feedback.html?ts="+now);
         });
+        $(".footer .tohelp").on('click', function (){
+            let now = parseInt(new Date().getTime()/1000);
+            miniPage.hashChange("help.html?ts="+now);
+        })
         $('.footer .help-question').on('click', function () {
             startHelp();
         });
@@ -217,13 +252,24 @@
             $('#broadcast-id').removeClass("layui-badge-dot");
             layui.data('broadcast',{key:"last",value: id});
         });
-        function startHelp(){
-            index = 0;
-            $('.help .next span').text('下一步');
-            $(".help .body .desc").html(helpList[0].content);
-            $(".help .body img").attr('src',helpList[0].image_url);
-            $(".help").toggle();
-        }
+        $('.warning-show .warning-container .close').on('click', function () {
+            $('.warning-show').toggle();
+            layui.data('warning',{key:"info",value: 1});
+        });
+        $('.warning-show .toHelp').on('click', function () {
+            layui.data('warning',{key:"info",value: 1});
+            $('.warning-show').hide();
+            let now = parseInt(new Date().getTime()/1000);
+            miniPage.hashChange('help.html?ts='+now);
+        });
+
+        // function startHelp(){
+        //     index = 0;
+        //     $('.help .next span').text('下一步');
+        //     $(".help .body .desc").html(helpList[0].content);
+        //     $(".help .body img").attr('src',helpList[0].image_url);
+        //     $(".help").toggle();
+        // }
     });
 
     function outlineDownload(){
@@ -241,5 +287,6 @@
         // }, 500);
     }
 </script>
+<script src="js/common.js" charset="utf-8"></script>
 </body>
 </html>

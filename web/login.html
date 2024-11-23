@@ -54,134 +54,142 @@
         <span class="marquee-text">会员时间已到期，加速服务暂无法使用，请登录会员中心续费。</span>
     </div>
 </div>
-    <div class="mescroll layui-container"  id="mescroll">
-        <div class="admin-login-background">
-            <div class="layui-form login-form">
-                <form class="layui-form" action="">
-                    <div class="layui-form-item logo-title">
-                        <div class="icon-cp"></div>
-                        <h1 style="font-size: 24px;line-height: 31px;color: #393D41;">登录</h1>
-                    </div>
+<div class="mescroll layui-container"  id="mescroll">
+    <div class="admin-login-background">
+        <div class="layui-form login-form">
+            <form class="layui-form" action="">
+                <div class="layui-form-item logo-title">
+                    <div class="icon-cp"></div>
+                    <h1 style="font-size: 24px;line-height: 31px;color: #393D41;">仅限已下载Outline的老用户登录</h1>
+                </div>
 
-                    <div class="form-body">
-                        <div class="layui-form-item input">
-                            <!-- <label class="layui-icon layui-icon-username"></label> -->
-                            <img src="./images/icon_phone.png" class="icon" />
-                            <input type="text" name="username" placeholder="请输入您的手机号" autocomplete="off" class="layui-input">
-                        </div>
-                        <div class="layui-form-item input">
-                            <img src="./images/icon_password.png" class="icon" />
-                            <input type="text" id="login-password" name="password" autocomplete="off" placeholder="请输入您的密码" class="layui-input">
-                        </div>
+                <div class="form-body">
+                    <div class="layui-form-item input">
+                        <!-- <label class="layui-icon layui-icon-username"></label> -->
+                        <img src="./images/icon_phone.png" class="icon" />
+                        <input type="text" name="username" placeholder="请输入您的手机号" autocomplete="off" class="layui-input">
                     </div>
+                    <div class="layui-form-item input">
+                        <img src="./images/icon_password.png" class="icon" />
+                        <input type="text" id="login-password" name="password" autocomplete="off" placeholder="请输入您的密码" class="layui-input">
+                    </div>
+                </div>
 
-                    <div class="layui-form-item login">
-                        <button lay-submit="" lay-filter="login">登 录</button>
-                    </div>
-                </form>
-            </div>
-            <div class="footer">
-                <div id="forgot-password">忘记密码?</div>
-                <div id="register">注册新账号</div>
-            </div>
+                <div id="forgot-password" class="forgot-password">忘记密码?</div>
+                <div class="layui-form-item login">
+                    <button lay-submit="" lay-filter="login">登 录</button>
+                </div>
+            </form>
+        </div>
+        <div class="footer">
+            <button onclick="goNewEnter()">新版web端登录入口>></button>
         </div>
     </div>
+</div>
 
-    <script src="lib/layui-v2.6.7/layui.js" charset="utf-8"></script>
-    <script src="js/refresh.js" charset="utf-8"></script>
-    <script src="js/mescroll.min.js" type="text/javascript" charset="utf-8"></script>
-    <script src="js/md5.min.js" charset="utf-8"></script>
-    <script src="js/utils.js" charset="utf-8"></script>
-    <script>
-        layui.use(['form'], function() {
-            var form = layui.form,
-                layer = layui.layer,
-                $ = layui.jquery;
+<script src="lib/layui-v2.6.7/layui.js" charset="utf-8"></script>
+<script src="js/refresh.js" charset="utf-8"></script>
+<script src="js/mescroll.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/md5.min.js" charset="utf-8"></script>
+<script src="js/utils.js" charset="utf-8"></script>
+<script>
+    let channel = '';
+    layui.use(['form'], function() {
+        var form = layui.form,
+            layer = layui.layer,
+            $ = layui.jquery;
 
 
-            let request = GetRequestParams(layui.router().href);
-            if (request["channel"] != undefined && request["channel"] != ""){
-                layui.data('channel',{key:"info",value: request["channel"]});
-            }
-            if(request["expire"] != undefined){
-                $(".box").show()
-            }
+        let request = GetRequestParams(layui.router().href);
+        if (request["channel"] != undefined && request["channel"] != ""){
+            layui.data('channel',{key:"info",value: request["channel"]});
+            channel = request["channel"]
+        }
+        if(request["expire"] != undefined){
+            $(".box").show()
+        }
 
-            $('#forgot-password').on('click', function () {
-                location.href = "forgot_password.html";
-            });
-
-            $('#register').on('click', function () {
-                location.href = "register.html";
-            });
-
-            $("#login-password").bind("input propertychange",function(event){
-                let password = $("#login-password").val();
-                if (password.length <=0){
-                    $("#login-password").attr("type","text");
-                }else {
-                    $("#login-password").attr("type","password");
-                }
-            });
-
-            const container = document.querySelector(".marquee-container");
-            const text = document.querySelector(".marquee-text");
-
-            // 判断文本内容是否超出容器宽度
-            if (text.getBoundingClientRect().width > container.clientWidth) {
-                text.classList.add("marquee-text-animation"); // 添加滚动样式
-            } else {
-                text.classList.remove("marquee-text-animation"); // 移除滚动样式
-            }
-
-            // 进行登录操作
-            form.on('submit(login)', function(data) {
-                data = data.field;
-                if (!/^1\d{10}$/.test(data.username)) {
-                    layer.msg('手机号格式有误', {
-                        time: 1000
-                    });
-                    return false;
-                }
-                if (data.password.length < 6 || data.password.length > 20) {
-                    layer.msg('密码长度为6-20位', {
-                        time: 1000
-                    });
-                    return false;
-                }
-
-                var loadIndex = layer.load(2, {
-                    shade: [0.2,'#000000'] //0.1透明度的白色背景
-                });
-
-                axios({
-                    "method": "POST",
-                    "url": `${API_URL}/user/login`,
-                    "data": data,
-                }).then((json) => {
-                    layer.close(loadIndex);
-                    if (json.code == 200) {
-                        json.data.cache_ts = parseInt(new Date().getTime()/1000);
-                        layui.sessionData('user',{key:"userInfo",value: json.data});
-                        layui.data('token', {key:"info",value: json.data.token});
-
-                        layer.msg('登录成功', {
-                            time: 1000
-                        }, function() {
-                            setTimeout(window.location = 'index.html',500);
-                        });
-                    } else {
-                        layer.msg(json.msg);
-                    }
-                }, (e) => {
-                    layer.close(loadIndex);
-                    layer.msg(e.errorType);
-                });
-
-                return false;
-            });
+        $('#forgot-password').on('click', function () {
+            location.href = "forgot_password.html";
         });
-    </script>
+
+        $('#register').on('click', function () {
+            location.href = "register.html";
+        });
+
+        $("#login-password").bind("input propertychange",function(event){
+            let password = $("#login-password").val();
+            if (password.length <=0){
+                $("#login-password").attr("type","text");
+            }else {
+                $("#login-password").attr("type","password");
+            }
+        });
+
+        layui.data('warning',{key:"info",value: 0});
+
+        const container = document.querySelector(".marquee-container");
+        const text = document.querySelector(".marquee-text");
+
+        // 判断文本内容是否超出容器宽度
+        if (text.getBoundingClientRect().width > container.clientWidth) {
+            text.classList.add("marquee-text-animation"); // 添加滚动样式
+        } else {
+            text.classList.remove("marquee-text-animation"); // 移除滚动样式
+        }
+
+        // 进行登录操作
+        form.on('submit(login)', function(data) {
+            data = data.field;
+            if (!/^1\d{10}$/.test(data.username)) {
+                layer.msg('手机号格式有误', {
+                    time: 1000
+                });
+                return false;
+            }
+            if (data.password.length < 6 || data.password.length > 20) {
+                layer.msg('密码长度为6-20位', {
+                    time: 1000
+                });
+                return false;
+            }
+
+            var loadIndex = layer.load(2, {
+                shade: [0.2,'#000000'] //0.1透明度的白色背景
+            });
+
+            axios({
+                "method": "POST",
+                "url": `${API_URL}/user/login`,
+                "data": data,
+            }).then((json) => {
+                layer.close(loadIndex);
+                if (json.code == 200) {
+                    json.data.cache_ts = parseInt(new Date().getTime()/1000);
+                    layui.sessionData('user',{key:"userInfo",value: json.data});
+                    layui.data('token', {key:"info",value: json.data.token});
+
+                    layer.msg('登录成功', {
+                        time: 1000
+                    }, function() {
+                        setTimeout(window.location = 'index.html',500);
+                    });
+                } else {
+                    layer.msg(json.msg);
+                }
+            }, (e) => {
+                layer.close(loadIndex);
+                layer.msg(e.errorType);
+            });
+
+            return false;
+        });
+    });
+
+    function goNewEnter(){
+        location.href= 'https://lbvpn.github.io/vpn/appstore/login.html?channel='+channel;
+    }
+</script>
 </body>
 
 </html>

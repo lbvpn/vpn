@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title class="icon-title">猎豹加速器</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta http-equiv="Access-Control-Allow-Origin" content="*">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="icon" href="images/favicon.ico">
+    <link rel="stylesheet" href="lib/layui-v2.6.7/css/layui.css" media="all">
+    <link rel="stylesheet" href="lib/font-awesome-4.7.0/css/font-awesome.min.css" media="all">
+    <link rel="stylesheet" href="css/layuimini.css" media="all">
+    <link rel="stylesheet" href="css/themes/default.css" media="all">
+    <link rel="stylesheet" href="css/public.css" media="all">
+    <link rel="stylesheet" href="css/index.css" media="all">
+    <link rel="stylesheet" type="text/css" href="./css/user.css">
+    <link rel="stylesheet" type="text/css" href="./css/broadcast.css">
+    <link rel="stylesheet" type="text/css" href="./css/buy.css">
+    <link rel="stylesheet" type="text/css" href="css/help.css">
+    <link rel="stylesheet" type="text/css" href="./css/feedback.css">
+    <link rel="stylesheet" type="text/css" href="./css/feedback_list.css">
+    <link rel="stylesheet" type="text/css" href="./css/route.css">
+    <link rel="stylesheet" type="text/css" href="./css/update-password.css">
+    <link rel="stylesheet" href="./css/mescroll.min.css" media="all">
+    <link rel="apple-touch-icon" sizes="108x108" href="./images/icon-cp.png">
+    <link rel="icon" href="./favicon.ico">
+    <!--[if lt IE 9]>
+    <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+    <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body class="layui-layout-body layuimini-all">
+<div class="layui-layout layui-layout-admin">
+    <div>
+        <div class="layui-body">
+            <div class="mescroll"  id="mescroll-3">
+                <div class="layuimini-content-page">
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div style="z-index: 900;">
+        <div class="footer">
+            <div class="layuimini-header-content">
+                <ul class="layui-nav nav" style="position: unset;">
+                    <li class="layui-nav-item layui-this">
+                        <a href="javascript:;" class="user"><i>首页</i></a>
+                    </li>
+                    <li class="layui-nav-item">
+                        <a href="javascript:;" class="buy"><i>购买</i></a>
+                    </li>
+                    <li class="layui-nav-item">
+                        <a href="javascript:;" class="route"><i>客户端下载</i></a>
+                    </li>
+                </ul>
+            </div>
+
+            <div></div>
+        </div>
+    </div>
+</div>
+<script src="lib/layui-v2.6.7/layui.js" charset="utf-8"></script>
+<script src="js/lay-config.js" charset="utf-8"></script>
+<script src="js/utils.js" charset="utf-8"></script>
+<script src="js/md5.min.js" charset="utf-8"></script>
+<script src="js/refresh.js" charset="utf-8"></script>
+<script src="js/mescroll.min.js" type="text/javascript" charset="utf-8"></script>
+<script>
+    // We pre-filled your app ID in the widget URL: 'https://widget.intercom.io/widget/kbx8admj'
+    (function(){var w=window;var ic=w.Intercom;if(typeof ic==="function"){ic('reattach_activator');ic('update',w.intercomSettings);}else{var d=document;var i=function(){i.c(arguments);};i.q=[];i.c=function(args){i.q.push(args);};w.Intercom=i;var l=function(){var s=d.createElement('script');s.type='text/javascript';s.async=true;s.src='https://widget.intercom.io/widget/kbx8admj';var x=d.getElementsByTagName('script')[0];x.parentNode.insertBefore(s,x);};if(document.readyState==='complete'){l();}else if(w.attachEvent){w.attachEvent('onload',l);}else{w.addEventListener('load',l,false);}}})();
+</script>
+<script>
+    layui.use(['jquery', 'layer','miniAdmin','miniPage'], function () {
+        var $ = layui.jquery,
+            layer = layui.layer,
+            miniAdmin = layui.miniAdmin,
+            miniPage = layui.miniPage;
+ 
+
+        var index = 0;
+        var options = {
+            renderPageVersion: false,    // 初始化页面是否加版本号
+            bgColorDefault: false,      // 主题默认配置
+            multiModule: false,          // 是否开启多模块
+            menuChildOpen: false,       // 是否默认展开菜单
+            loadingTime: 0,             // 初始化加载时间
+            pageAnim: true,             // 切换菜单动画
+        };
+
+        var channel = "";
+        let request = GetRequestParams(layui.router().href);
+        console.log(request["channel"]);
+        if (request["channel"] != undefined && request["channel"] != ""){
+            channel = request["channel"];
+            layui.data('channel',{key:"info",value: request["channel"]});
+        }
+        options.channel = channel;
+
+        let deviceOs = layui.data('deviceInfo').device_os;
+        if(deviceOs != undefined && deviceOs == "ios") {
+            postMessage(JSON.stringify({type: "barColor", data: "\\#393D41"}));
+            postMessage(JSON.stringify({type: "statusBarStyle", data:"lightContent"}));
+        }
+
+        miniAdmin.render(options);
+
+        console.log(layui.sessionData('user').userInfo)
+
+        let uid = 0;
+        if(layui.sessionData('user').userInfo!=undefined && layui.sessionData('user').userInfo.uid != undefined){
+            uid = layui.sessionData('user').userInfo.uid;
+        }
+
+        window.intercomSettings = {
+            api_base: "https://api-iam.intercom.io",
+            app_id: "kbx8admj",
+            user_id: 'web-lb-'+uid,
+        };
+
+        $('.login-out').on("click", function () {
+            layui.data("token",null);
+            layui.sessionData('route',null);
+            layui.sessionData('user',null);
+            layer.msg('退出登录成功', function () {
+                window.location = 'login.html';
+            });
+        });
+        $('.footer .index').on('click', function () {
+            $(".footer span").removeClass('select');
+            $(this).addClass('select');
+            let now = parseInt(new Date().getTime()/1000);
+            miniPage.hashChange("user.html?ts="+now);
+        });
+        $('.footer .buy').on('click', function () {
+            $(".footer span").removeClass('select');
+            $(this).addClass('select');
+            let now = parseInt(new Date().getTime()/1000);
+            miniPage.hashChange("buy.html?ts="+now);
+        });
+        $('.footer .help').on('click', function () {
+            $(".footer span").removeClass('select');
+            $(this).addClass('select');
+            let now = parseInt(new Date().getTime()/1000);
+            miniPage.hashChange("help.html?ts="+now);
+        });
+    });
+</script>
+<script src="js/common.js" charset="utf-8"></script>
+</body>
+</html>

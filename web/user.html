@@ -43,6 +43,14 @@
           <button class="vip-bg go-buy">续费</button>
         </div>
       </div>
+
+      <div>
+        <div style="font-size: 16px; font-weight: bold;">IOS用户须知</div>
+        *<span style="color: orangered">Outline已在中国区下架</span>，已下载用户目前不影响使用，但需在2025年1月1日前迁移至猎豹IOS客户端，现在下载赠送15天VIP时长<br/>
+        *未下载Outline的用户建议AppStore下载猎豹IOS客户端（需外区Apple ID下载），享海量线路和7/24技术支持，更有惊喜福利等着你！<br/>
+
+        <button class="toHelp" style="font-weight: bold;color: #2468F2;margin-bottom: 13px;">点此查看下载教程>></button>
+      </div>
     </div>
   </div>
 </div>
@@ -169,6 +177,11 @@
 
     $(".layuimini-main-user .modify-password").on('click', function () {
       miniPage.hashChange("update_password.html");
+    });
+
+    $('.layuimini-main-user .toHelp').on('click', function () {
+      let now = parseInt(new Date().getTime()/1000);
+      miniPage.hashChange('help.html?ts='+now);
     });
 
     form.render();

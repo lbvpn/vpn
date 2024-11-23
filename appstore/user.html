@@ -1,0 +1,282 @@
+
+<div class="layuimini-container layuimini-page-anim">
+  <div class="layuimini-main-user">
+    <div class="top">
+      <div class="title">
+        <img src="images/icon-avatar.png" >
+        <div>
+          <div class="username"></div>
+          <div style="display: flex;">
+            <div class="btn modify-password">修改密码</div>
+            <div class="btn logout">退出登录</div>
+          </div>
+        </div>
+      </div>
+      <div class="membership">
+        <div class="title">我的会员</div>
+        <div class="vip-content">
+          <div class="svip" style="display: none;">
+            <div class="left">
+              <div class="title">
+                <img src="images/icon-no-vip.png"/>
+                <span>SVIP超级会员</span>
+              </div>
+              <div class="time svip-time"><span></span>到期</div>
+            </div>
+            <button class="go-buy">续费</button>
+          </div>
+          <div class="vip" style="display: block">
+            <div class="left">
+              <div class="title">
+                <img src="images/icon-no-vip.png"/>
+                <span>VIP会员</span>
+              </div>
+              <div class="time vip-time"><span></span>到期</div>
+            </div>
+            <button class="vip-bg go-buy">续费</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="body">
+        <div class="route-desc">
+          海量全球高质量专线，低延迟，无卡顿
+          <div class="gotoHelp">点此查看iOS下载方案>></div>
+        </div>
+        <ul>
+          <li id="1">
+            <div class="route-body">
+              <div>
+                <img src="images/flag_hk.png">
+                <span class="name">中国香港专线</span>
+              </div>
+              <div class="route-detail"></div>
+            </div>
+          </li>
+          <li id="2">
+            <div class="route-body">
+              <div>
+                <img src="images/flag_us.png">
+                <span class="name">美国专线</span>
+              </div>
+              <div class="route-detail"></div></div>
+          </li>
+          <li id="3">
+            <div class="route-body">
+              <div>
+                <img src="images/flag_sg.png">
+                <span class="name">新加坡专线</span>
+              </div>
+              <div class="route-detail"></div></div>
+          </li>
+          <li id="4">
+            <div class="route-body">
+              <div>
+                <img src="images/flag_jp.png">
+                <span class="name">日本专线</span>
+              </div>
+              <div class="route-detail"></div></div>
+          </li>
+          <li id="5">
+            <div class="route-body">
+              <div>
+                <img src="images/flag_nl.png">
+                <span class="name">荷兰专线</span>
+              </div>
+              <div class="route-detail"></div></div>
+          </li>
+          <li id="6">
+            <div class="route-body">
+              <div>
+                <img src="images/flag_fr.png">
+                <span class="name">法国专线</span>
+              </div>
+              <div class="route-detail"></div></div>
+          </li>
+          <li id="7">
+            <div class="route-body">
+              <div>
+                <img src="images/flag_cn.png">
+                <span class="name">中国专线</span>
+              </div>
+              <div class="route-detail"></div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div>
+    </div>
+    <div class="show">
+      <div>
+        <button class="close cancel1"><img src="images/close.png"/></button>
+        <div class="title">提示</div>
+        <div class="desc">你的账号暂无可用时长，请购买后再使用！</div>
+
+        <div class="footer2">
+          <button class="cancel cancel1">取消</button>
+          <button class="buy">购买会员</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="js/utils.js" charset="utf-8"></script>
+<script>
+  layui.use(['form', 'table','miniPage'], function () {
+    var $ = layui.jquery,
+            form = layui.form,
+            table = layui.table,
+            layer = layui.layer,
+            miniPage = layui.miniPage;
+
+    let request = GetRequestParams(layui.router().href);
+    if (request["channel"] != undefined && request["channel"] != ""){
+      layui.data('channel',{key:"info",value: request["channel"]});
+    }
+
+    var userInfo = layui.sessionData('user').userInfo;
+    console.log(userInfo)
+    if (userInfo == undefined || userInfo.username == undefined){
+      var loadIndex = layer.load(2, {
+        shade: [0.2,'#000000'] //0.1透明度的白色背景
+      });
+      getUserInfo(loadIndex);
+      return false;
+    }else {
+      let isReset = false;
+      $(".layuimini-main-user .username").text(userInfo.username);
+      let timestamp=parseInt(new Date().getTime()/1000);
+      if(timestamp-userInfo.cache_ts>10){
+        isReset = true;
+        getUserInfo();
+      }
+
+      if (!isReset){
+        resetUser(userInfo);
+      }
+    }
+
+    function resetUser(userInfo){
+      let timestamp=parseInt(new Date().getTime()/1000);
+      $(".layuimini-main-user .body .vip-content").show();
+
+      if(userInfo.vip_expire_time==0){
+        userInfo.vip_expire_time = userInfo.created;
+      }
+
+      if(userInfo.vip_expire_time > timestamp){
+        $(".layuimini-main-user .vip-content .svip .title img").attr('src','images/icon-svip.png');
+        $(".layuimini-main-user .vip-content .svip .title span").addClass("font-valid");
+        $(".layuimini-main-user .vip-content .svip .left .time").css('color','#B4731C');
+        $(".layuimini-main-user .vip-content .svip").addClass('valid');
+        $(".layuimini-main-user .vip-content .svip button").addClass('valid');
+
+        $(".layuimini-main-user .vip-content .svip").show();
+        $(".layuimini-main-user .vip-content .vip").hide();
+      }else if(userInfo.expire_time > timestamp){
+        $(".layuimini-main-user .vip-content .vip .title img").attr('src','images/icon-svip.png');
+        $(".layuimini-main-user .vip-content .vip .title span").addClass("font-valid");
+        $(".layuimini-main-user .vip-content .vip .left .time").css('color','#B4731C');
+        $(".layuimini-main-user .vip-content .vip").addClass('valid');
+        $(".layuimini-main-user .vip-content .vip button").addClass('valid');
+
+        $(".layuimini-main-user .vip-content .vip").show();
+        $(".layuimini-main-user .vip-content .svip").hide();
+      }
+
+      $(".layuimini-main-user .svip-time span").text(dateUnixFormat(userInfo.vip_expire_time));
+      $(".layuimini-main-user .vip-time span").text(dateUnixFormat(userInfo.expire_time))
+    }
+
+    function getUserInfo(loadIndex){
+      console.log("loadIndex: "+loadIndex)
+      axios({
+        "method": "GET",
+        "url": `${API_URL}/user/info`,
+      }).then((json) => {
+        if(loadIndex != undefined){
+          layer.close(loadIndex);
+        }
+        if (json.code == 200) {
+          userInfo = json.data;
+          let timestamp = parseInt(new Date().getTime()/1000);
+          json.data.cache_ts = timestamp;
+          layui.sessionData('user',{key:"userInfo",value: json.data});
+          resetUser(json.data);
+        } else if(json.code == 4003){
+          layer.msg(json.msg, {
+            time: 1000
+          }, function() {
+            layui.sessionData('user',{key:"userInfo",remove: true})
+            window.location = 'login.html';
+          });
+        }else {
+          layer.msg(json.msg);
+        }
+      }, (e) => {
+        if(loadIndex != undefined){
+          layer.close(loadIndex);
+        }
+        layer.msg(e.errorType);
+      });
+    }
+
+    $(".layuimini-main-user .logout").on('click', function () {
+      layui.data("token",null);
+      layui.sessionData('user',null);
+      layui.data('route',null);
+
+      layer.msg('退出登录成功', function () {
+        window.location = 'login.html';
+      });
+    });
+
+    $(".layuimini-main-user .go-buy").on('click', function () {
+      let isSvip = 0;
+      if(!$(this).hasClass('vip-bg')){
+        isSvip = 1;
+      }
+      layui.sessionData('buy_tab', {key:"is_svip",value: isSvip});
+      miniPage.hashChange('buy.html');
+    });
+
+    $(".layuimini-main-user .modify-password").on('click', function () {
+      miniPage.hashChange("update_password.html");
+    });
+
+    $("ul li").on('click', function (){
+      let timestamp=parseInt(new Date().getTime()/1000);
+      if(userInfo.expire_time > timestamp){
+        miniPage.hashChange('help.html');
+        return false
+      }else{
+       $(".layuimini-main-user .show").show();
+      }
+    })
+
+    $(".layuimini-main-user .show .cancel1").on('click', function (){
+      $(".layuimini-main-user .show").hide()
+    })
+    $(".layuimini-main-user .show .buy").on('click', function (){
+      $(".layuimini-main-user .show").hide();
+      miniPage.hashChange('buy.html');
+    })
+
+    for (let i=1;i<=7;i++){
+      if(i==2 || i==5 || i==6){
+        $("#"+i).find(".route-detail").text((Math.floor(Math.random() * (100 - 80 + 1)) + 70)+"ms")
+      }else{
+        $("#"+i).find(".route-detail").text((Math.floor(Math.random() * (80 - 25 + 1)) + 25)+"ms")
+      }
+    }
+
+    $(".gotoHelp").on('click', function (){
+      miniPage.hashChange('help.html');
+    })
+    form.render();
+  });
+
+
+</script>

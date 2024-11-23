@@ -1,12 +1,12 @@
 <div class="layuimini-container layuimini-page-anim">
-  <div class="layuimini-main-route" id="bd-route-detail-id">
+  <div class="layuimini-main-route">
     <div class="top">
       <div class="title">
         <button class="super">SVIP线路</button>
         <button class="normal select">VIP线路</button>
       </div>
     </div>
-    <div style="padding: 16px 19px 0 19px;color: red;">温馨提示: 您获取到线路后，在到期之前可以一直使用，无需重复获取线路.</div>
+    <div style="padding: 16px 19px 0 19px;color: red;">温馨提示: 中国区AppStore已下架Outline，已经安装Outline的仍可使用，请不要卸载或尽快迁移至猎豹IOS客户端<br/><button class="toHelp" style="color: #2468F2;font-weight: bold;">查看下载教程>></button></div>
     <div class="body svip"><ul></ul></div>
     <div class="body vip"><ul></ul></div>
 
@@ -58,7 +58,7 @@
     $('.layuimini-main-route .show .copy').on('click', function () {
       copyText($(".layuimini-main-route .show .sign span").text());
     });
-  
+
     var routeInfo = layui.sessionData('route_list').info;
     var userInfo = layui.sessionData('user').userInfo;
 
@@ -69,6 +69,11 @@
       $('div.layuimini-main-route .vip').hide();
       $('div.layuimini-main-route .svip').show();
     }
+
+    $('.layuimini-main-route .toHelp').on('click', function () {
+      let now = parseInt(new Date().getTime()/1000);
+      miniPage.hashChange('help.html?ts='+now);
+    });
 
     if (routeInfo == undefined || routeInfo.username == undefined){
       var loadIndex = layer.load(2, {
@@ -131,18 +136,18 @@
       let timestamp = parseInt(new Date().getTime()/1000);
       let html = "";
       layui.each(routeList,function (index,item) {
-        if(item.type_name != "CN2XX-JP-JSQ" && item.name.indexOf("日本")<0){
-            let useStyle = "";
-            layui.each(useRouteInfo, function (index2, item2) {
-              if (index2 == item.id && timestamp - item2.cache_ts < 300) {
-                // useStyle = "use";
-                return true;
-              }
-            });
-            html += `<li id="${item.id}" svip='${isSvip}'><div class="fixed ${useStyle}"></div><div class="route-body"><div><img src="${item.image_url}"><span class="name">${item.name}</span></div><div class="route-detail" value="${item.id}">获取线路</div></div> </li>`;
-          }
+        if(item.type_name != "CN2XX-JP-JSQ"){
+          let useStyle = "";
+          layui.each(useRouteInfo, function (index2, item2) {
+            if (index2 == item.id && timestamp - item2.cache_ts < 300) {
+              // useStyle = "use";
+              return true;
+            }
+          });
+          html += `<li id="${item.id}" svip='${isSvip}'><div class="fixed ${useStyle}"></div><div class="route-body"><div><img src="${item.image_url}"><span class="name">${item.name}</span></div><div class="route-detail" value="${item.id}">获取线路</div></div> </li>`;
+        }
       });
-      
+
       if (isSvip) {
         $(".layuimini-main-route .svip ul").html(html);
       }else {
@@ -160,14 +165,14 @@
         layui.each(routeInfo, function (index,item) {
           if(index == id){
             if (timestamp-item.cache_ts < 60){
-                let sign = item.sign;
-                if (sign.indexOf("#") < 0){
-                  sign = sign+"#"+name;
-                }
+              let sign = item.sign;
+              if (sign.indexOf("#") < 0){
+                sign = sign+"#"+name;
+              }
 
-                showRouteInfo(sign);
-                isReq = false;
-                return true;
+              showRouteInfo(sign);
+              isReq = false;
+              return true;
             }
           }
         })
@@ -215,7 +220,7 @@
             layui.each(routeInfo, function (index,item) {
               if(index != id){
                 item.is_use = false;
-              
+
                 layui.data('route',{key:index,value:item});
               }
             })
@@ -230,7 +235,7 @@
           if (sign.indexOf("#") < 0){
             sign = sign+"#"+name;
           }
-         
+
           showRouteInfo(sign);
         } else if(json.code == 4003){
           layer.msg(json.msg, {
