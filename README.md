@@ -4,7 +4,7 @@
 
 **:arrow_double_down: [Android 版本.apk](https://github.com/lbvpn/vpn/raw/main/files/liebao-v2.9.1-29.apk)**
 
-**:arrow_double_down: [iOS网页版(建议优选海外商店下载）](https://lbvpn.github.io/vpn/appstore/login.html?channel=GitHub)** 
+**:arrow_double_down: [iOS网页版(建议优选海外商店下载）](https://lbvpn.github.io/vpn/appstore/index.html?channel=GitHub)** 
 
 **:arrow_double_down: [iOS 海外商店版本](https://apps.apple.com/us/app/cc-vpn/id1593555019)**
 
