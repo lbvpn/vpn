@@ -59,3 +59,12 @@ div.forgot-password{
 .login-form .input div.countdown{
     display: none;opacity: 0.5;background-color: gray;
 }
+
+.login-warning-show{position: absolute;top:0;left: 0;width: 100%;height: 100%;background: rgba(74,74,74,0.5);display: none;z-index: 910;}
+.login-warning-show .warning-container{width: 340px; margin: 170px auto 0 auto;background-color: white;text-align: center;position: relative;}
+.login-warning-show .warning-container > div{padding: 18px 23px;}
+.login-warning-show .warning-container div .title{font-size: 22px;font-weight: bold;color: #393D41;}
+.login-warning-show .warning-container div .id{display: none;}
+.login-warning-show .warning-container div .close{position: absolute;top: 0;right: 0;width: 40px;height: 40px;cursor: pointer;}
+.login-warning-show .warning-container div .close img{width: 13px;height: 14px;}
+.login-warning-show .warning-container div .desc{margin: 20px auto;font-size: 16px;line-height: 30px;color: black;text-align: left;}

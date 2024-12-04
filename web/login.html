@@ -85,6 +85,18 @@
             <button onclick="goNewEnter()">新版web端登录入口>></button>
         </div>
     </div>
+
+    <div class="login-warning-show" style="display: none;">
+        <div class="warning-container">
+            <div>
+                <div class="title">重要通知</div>
+                <div class="desc">
+                    outline方案已经停止使用，请登录web端使用<br/>
+                </div>
+                <button class="toLoginHelp" style="width: 295px;height: 40px; background-color: #2468F2;color: white;border-radius: 2px;">web端入口</button>
+            </div>
+        </div>
+    </div>
 </div>
 
 <script src="lib/layui-v2.6.7/layui.js" charset="utf-8"></script>
@@ -131,6 +143,10 @@
         });
 
         layui.data('warning',{key:"info",value: 0});
+
+        $(".login-warning-show .toLoginHelp").on('click', function(){
+            goNewEnter()
+        })
 
         const container = document.querySelector(".marquee-container");
         const text = document.querySelector(".marquee-text");
@@ -180,7 +196,7 @@
                         setTimeout(window.location = 'index.html',500);
                     });
                 } else if(json.code==4089){
-                    
+                    $(".login-warning-show").show();
                 } else {
                     layer.msg(json.msg);
                 }
