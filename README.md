@@ -10,7 +10,7 @@
 
 **:arrow_double_down: [Windows 版本.exe](https://github.com/lbvpn/vpn/raw/refs/heads/main/files/liebao%5Bdefault%5D-v3.1.0.exe)**
 
-**:arrow_double_down: [macOS 版本.pkg](https://github.com/lbvpn/vpn/raw/refs/heads/main/files/liebao-v3.1.0%5Bdefault%5D.pkg)**
+**:arrow_double_down: [macOS 版本.pkg](https://github.com/lbvpn/vpn/raw/refs/heads/main/files/liebao-v3.2.1%5Bdefault%5D.pkg)**
 
 **:globe_with_meridians: [永久官网（需翻墙访问）](https://www.lbvpn.cc)** 
 - - - -
