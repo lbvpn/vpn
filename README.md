@@ -8,7 +8,7 @@
 
 **:arrow_double_down: [iOS 海外商店版本](https://apps.apple.com/us/app/cc-vpn/id1593555019)**
 
-**:arrow_double_down: [Windows 版本.exe](https://github.com/lbvpn/vpn/raw/refs/heads/main/files/liebao%5Bdefault%5D-v3.1.0.exe)**
+**:arrow_double_down: [Windows 版本.exe](https://github.com/lbvpn/vpn/raw/refs/heads/main/files/liebao%5Bdefault%5D-v3.2.0-8.exe)**
 
 **:arrow_double_down: [macOS 版本.pkg](https://github.com/lbvpn/vpn/raw/refs/heads/main/files/liebao-v3.2.1%5Bdefault%5D.pkg)**
 
