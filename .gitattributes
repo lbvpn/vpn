@@ -5,3 +5,4 @@ files/liebao[default]-v3.1.0.exe filter=lfs diff=lfs merge=lfs -text
 files/liebao-v3.1.0[default].pkg filter=lfs diff=lfs merge=lfs -text
 files/liebao-v3.2.1[default].pkg filter=lfs diff=lfs merge=lfs -text
 files/liebao[default]-v3.2.0-8.exe filter=lfs diff=lfs merge=lfs -text
+files/liebao[default]-v3.3.0-9.exe filter=lfs diff=lfs merge=lfs -text
