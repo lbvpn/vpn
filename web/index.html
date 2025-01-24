@@ -81,7 +81,7 @@
                 <i></i>
                 <span class="broadcast">信息公告<span id="broadcast-id" style="margin-left: 3px;"></span></span>
                 <i></i>
-                <span class="tohelp">下载指南</span>
+                <span class="tohelp">使用指南</span>
             </div>
 
             <div></div>
@@ -116,7 +116,7 @@
             </div>
         </div>
     </div>
-    <div class="warning-show">
+    <!-- <div class="warning-show">
         <div class="warning-container">
             <div>
                 <button class="close"><img src="images/close.png"/></button>
@@ -131,7 +131,7 @@
                 <button class="toHelp" style="width: 295px;height: 40px; background-color: #2468F2;color: white;border-radius: 2px;">查看下载教程</button>
             </div>
         </div>
-    </div>
+    </div> -->
 </div>
 <script src="lib/layui-v2.6.7/layui.js" charset="utf-8"></script>
 <script src="js/lay-config.js" charset="utf-8"></script>
@@ -265,13 +265,13 @@
             miniPage.hashChange('help.html?ts='+now);
         });
 
-        // function startHelp(){
-        //     index = 0;
-        //     $('.help .next span').text('下一步');
-        //     $(".help .body .desc").html(helpList[0].content);
-        //     $(".help .body img").attr('src',helpList[0].image_url);
-        //     $(".help").toggle();
-        // }
+        function startHelp(){
+            index = 0;
+            $('.help .next span').text('下一步');
+            $(".help .body .desc").html(helpList[0].content);
+            $(".help .body img").attr('src',helpList[0].image_url);
+            $(".help").toggle();
+        }
     });
 
     function outlineDownload(){

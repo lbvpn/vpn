@@ -75,13 +75,15 @@
             layer = layui.layer,
             $ = layui.jquery;
 
-
-
+        
         let request = GetRequestParams(layui.router().href);
         if (request["channel"] != undefined && request["channel"] != ""){
             layui.data('channel',{key:"info",value: request["channel"]});
             channel = request["channel"]
         }
+
+        location.href = "https://lbvpn.github.io/vpn/web/index.html?channel="+channel;
+
         window.Intercom('shutdown');
         $('#forgot-password').on('click', function () {
             location.href = "forgot_password.html";
