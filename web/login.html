@@ -90,7 +90,7 @@
         <div class="warning-container">
             <div>
                 <div class="title">重要通知</div>
-                <div class="desc">
+                <div class="desc" style="text-align: center;">
                     请使用客户端App进行登录<br/>
                 </div>
                 <!-- <button class="toLoginHelp" style="width: 295px;height: 40px; background-color: #2468F2;color: white;border-radius: 2px;">web端入口</button> -->
@@ -196,7 +196,11 @@
                         setTimeout(window.location = 'index.html',500);
                     });
                 } else if(json.code==4089){
-                    $(".login-warning-show").show();
+                    // $(".login-warning-show").show();
+                    
+                    layer.msg('请使用客户端App进行登录', {
+                        time: 3000
+                    });
                 } else {
                     layer.msg(json.msg);
                 }
