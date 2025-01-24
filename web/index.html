@@ -184,6 +184,10 @@
             $(".warning-show").show();
             // layui.data('warning',{key:"info",value: 1});
         }
+        var help = layui.data('help').info;
+        if(help == undefined || help != 1){
+            $(".help").show();
+        }
 
         let uid = 0;
         if(layui.data('user').userInfo!=undefined && layui.data('user').userInfo.uid != undefined){
