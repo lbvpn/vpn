@@ -91,9 +91,9 @@
             <div>
                 <div class="title">重要通知</div>
                 <div class="desc" style="text-align: center;">
-                    请使用客户端App进行登录<br/>
+                    您已在其他端注册并使用该账号，暂无法使用Outline方案，有疑问请使用APP内问题反馈联系客服解决！<br/>
                 </div>
-                <!-- <button class="toLoginHelp" style="width: 295px;height: 40px; background-color: #2468F2;color: white;border-radius: 2px;">web端入口</button> -->
+                <button class="toLoginHelp" style="width: 295px;height: 40px; background-color: #2468F2;color: white;border-radius: 2px;">知道了</button>
             </div>
         </div>
     </div>
@@ -145,7 +145,8 @@
         layui.data('warning',{key:"info",value: 0});
 
         $(".login-warning-show .toLoginHelp").on('click', function(){
-            goNewEnter()
+            // goNewEnter()
+            $(".login-warning-show").hide();
         })
 
         const container = document.querySelector(".marquee-container");
@@ -196,11 +197,11 @@
                         setTimeout(window.location = 'index.html',500);
                     });
                 } else if(json.code==4089){
-                    // $(".login-warning-show").show();
+                    $(".login-warning-show").show();
                     
-                    layer.msg('请使用客户端App进行登录', {
-                        time: 3000
-                    });
+                    // layer.msg('请使用客户端App进行登录', {
+                    //     time: 3000
+                    // });
                 } else {
                     layer.msg(json.msg);
                 }
