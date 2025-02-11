@@ -42,7 +42,7 @@ layui.define(["jquery", "miniMenu", "element","miniPage"], function (exports) {
         },
         {
             "id":3,
-            "title":"线路列表",
+            "title":"iOS线路",
             "href":menuHead+"route.html",
             "select":"",
             "target":"",

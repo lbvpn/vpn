@@ -22,6 +22,21 @@
         <button class="copy" style="margin-top: 12px;">复制并打开outline</button>
       </div>
     </div>
+
+    <div class="login-warning-show" style="display: block;">
+      <div class="warning-container">
+          <div>
+              <div class="title">重要提示</div>
+              <div class="desc" style="text-align: center;">
+                  此方案线路仅限ios用户使用，其他用户请前往官网下载对应的客户端使用！<br/>
+              </div>
+              <div style="display: flex;">
+                  <button class="gotoHome" style="width: 45%;height: 40px; background-color: #2468F2;color: white;border-radius: 2px;">下载其他客户端</button>
+                  <button class="toLoginHelp" style="margin-left: 10%;width: 45%;height: 40px; background-color: #2468F2;color: white;border-radius: 2px;">我是ios用户</button>
+              </div>
+          </div>
+      </div>
+  </div>
   </div>
 </div>
 
@@ -58,6 +73,13 @@
     $('.layuimini-main-route .show .copy').on('click', function () {
       copyText($(".layuimini-main-route .show .sign span").text());
     });
+
+    $('.layuimini-main-route .gotoHome').on('click', function () {
+        location.href='https://lbvpn.github.io/vpn/'
+    });
+    $(".layuimini-main-route .login-warning-show .toLoginHelp").on('click', function(){
+          $(".layuimini-main-route .login-warning-show").hide();
+    })
 
     var routeInfo = layui.sessionData('route_list').info;
     var userInfo = layui.data('user').userInfo;
