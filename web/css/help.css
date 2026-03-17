@@ -1,0 +1,21 @@
+.layuimini-main-help{margin: 20px;}
+.layuimini-main-help .change{display: flex;text-align: center;margin-top: 27px;box-shadow: rgb(193, 222, 227) 0px 3px 6px;border-radius: 11px;}
+.layuimini-main-help .change .select{background-color: #2468F2;color: white;}
+.layuimini-main-help .change > div{width: 50%;padding: 10px 15px;color: black;position: relative;cursor: pointer;}
+.layuimini-main-help .change .fuli{position: absolute;left: 32%;top: -12%;font-size: 13px;color: #fff;background-color: #ec8355;border-radius: 6px;padding: 3px 5px 3px 5px;}
+.layuimini-main-help .content{margin-top: 33px;}
+.layuimini-main-help .content > div .title{text-align: center;font-size: 23px;}
+.layuimini-main-help .content .outline .step{margin-top: 22px;font-size: 17px;color: black;}
+.layuimini-main-help .content .outline .step-desc{color: black;font-size: 15px;}
+.layuimini-main-help .content .outline .step-desc span{color: #2468F2}
+.layuimini-main-help .content .outline .step-desc img{width: 287px;margin: auto;display: block;}
+.layuimini-main-help .content .outline{display: none;}
+.layuimini-main-help .content .appstore{display: block;}
+.layuimini-main-help .layui-colla-title{color: #2468F2;font-weight: bold;}
+.layuimini-main-help .layui-colla-content{color: black;}
+.layuimini-main-help .content .appstore .step{display: flex;margin-bottom: 18px;}
+.layuimini-main-help .content .appstore .step .btns{width:50px;margin-top: 16px;margin-bottom: 10px;background-color: #d0edef;color: #212121;border: 1px solid #3aafb4;padding: 6px 19px;border-radius: 11px;text-align: center;font-size: 12px;border-radius: 17px;}
+.layuimini-main-help .content .appstore .step img{width: 96px;}
+.layuimini-main-help .content .appstore .step span{color: #2468F2}
+.layuimini-main-help .content .appstore .layui-colla-content button{margin-bottom: 20px;width: 220px;height: 45px;background-color: #2468F2;border-radius: 2px;color: white;line-height: 45px;}
+.layuimini-main-help .content .appstore .warning{background-color: rgb(208, 237, 239);font-size: 13px;padding: 16px;}
