@@ -280,7 +280,7 @@
     });
 
     function outlineDownload(){
-        var outlineUrl = "https://apps.apple.com/us/app/outline-app/id1356177741";
+        var outlineUrl = "https://apps.apple.com/app/id1356177741";
         let deviceOs = layui.data('deviceInfo').device_os;
         if(deviceOs != undefined && deviceOs == "ios") {
             postMessage(JSON.stringify({type: "outWeb", data: outlineUrl}));
