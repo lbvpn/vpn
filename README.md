@@ -2,7 +2,7 @@
 - - - -
 #### 请在浏览器内打开
 
-**:arrow_double_down: [Android v3.0.0.apk](https://github.com/lbvpn/vpn/raw/refs/heads/main/files/liebao-V3.0.0-30.apk)**
+**:arrow_double_down: [Android v3.2.0.apk](https://github.com/lbvpn/vpn/raw/refs/heads/main/files/liebao-v3.2.0-32.apk)**
 
 **:arrow_double_down: [iOS网页版](https://lbvpn.github.io/vpn/web/index.html?channel=GitHub)** 
 
