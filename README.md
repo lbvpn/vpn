@@ -2,15 +2,15 @@
 - - - -
 #### 请在浏览器内打开
 
-**:arrow_double_down: [Android v3.2.0.apk](https://github.com/lbvpn/vpn/raw/refs/heads/main/files/liebao-v3.2.0-32.apk)**
+**:arrow_double_down: [Android v3.2.0.apk](https://github.com/lbvpn/vpn/raw/refs/heads/main/file/liebao-v3.2.0-32.apk)**
 
 **:arrow_double_down: [iOS网页版](https://lbvpn.github.io/vpn/web/index.html?channel=GitHub)** 
 
 <!-- **:arrow_double_down: [iOS 海外商店版本](https://apps.apple.com/us/app/cc-vpn/id1593555019)** -->
 
-**:arrow_double_down: [Windows V3.7.0.exe](https://github.com/lbvpn/vpn/raw/refs/heads/main/files/liebao-V3.7.0-14.exe)**
+**:arrow_double_down: [Windows V4.0.0.exe](https://github.com/lbvpn/vpn/releases/download/liebao-latest-exe/liebao-V4.0.0-17.exe)**
 
-**:arrow_double_down: [macOS V3.3.3.pkg](https://github.com/lbvpn/vpn/raw/refs/heads/main/files/liebao-v3.3.3-65.pkg)**
+**:arrow_double_down: [macOS V3.3.3.pkg](https://github.com/lbvpn/vpn/raw/refs/heads/main/file/liebao-v3.3.3-65.pkg)**
 
 <!-- **:globe_with_meridians: [永久官网（需翻墙访问）](https://www.lbvpn.cc)**  -->
 - - - -
