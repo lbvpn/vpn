@@ -1,3 +1,0 @@
-files/liebao-V3.7.0-14.exe filter=lfs diff=lfs merge=lfs -text
-files/liebao-v3.3.3-65.pkg filter=lfs diff=lfs merge=lfs -text
-files/liebao-v3.2.0-32.apk filter=lfs diff=lfs merge=lfs -text

@@ -1,4 +1,4 @@
-var API_URL = "https://api.nmgxa.com/api/web";
+var API_URL = "https://fast.lbweb5.com/api/web";
 
 function setCookie(name,auth) {
     let exp = new Date();
